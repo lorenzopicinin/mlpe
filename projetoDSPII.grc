@@ -1,0 +1,972 @@
+options:
+  parameters:
+    author: picinin
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: projetoDSPII
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: Not titled yet
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: QAM4
+  id: variable_constellation
+  parameters:
+    comment: ''
+    const_points: '[-1-1j, -1+1j, 1+1j, 1-1j]'
+    dims: '1'
+    normalization: digital.constellation.AMPLITUDE_NORMALIZATION
+    npwr: '1.0'
+    precision: '8'
+    rot_sym: '4'
+    soft_dec_lut: None
+    sym_map: '[0, 1, 2, 3]'
+    type: calcdist
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [784, 20.0]
+    rotation: 0
+    state: enabled
+- name: alga
+  id: variable_adaptive_algorithm
+  parameters:
+    comment: ''
+    cons: QAM4
+    delta: '10.0'
+    ffactor: '0.99'
+    modulus: '4'
+    step_size: '.005'
+    type: lms
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1040, 20.0]
+    rotation: 0
+    state: enabled
+- name: alpha
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: 0,0,1,1
+    label: ''
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: int
+    start: '0'
+    step: '1'
+    stop: '16'
+    value: '0'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [504, 20.0]
+    rotation: 0
+    state: enabled
+- name: bb_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: 5e5
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [312, 12.0]
+    rotation: 0
+    state: enabled
+- name: head
+  id: variable_tag_object
+  parameters:
+    comment: ''
+    key: pmt.intern("training_start")
+    offset: '1'
+    src: pmt.intern("src")
+    value: pmt.intern("Training Sequence")
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1040, 108.0]
+    rotation: 0
+    state: enabled
+- name: interp
+  id: variable
+  parameters:
+    comment: ''
+    value: '10'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [408, 12.0]
+    rotation: 0
+    state: enabled
+- name: message
+  id: variable
+  parameters:
+    comment: ''
+    value: list(ord(i) for i in 'Teste QPSK...')
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 84.0]
+    rotation: 0
+    state: enabled
+- name: preamble
+  id: variable
+  parameters:
+    comment: ''
+    value: list(ord(i) for i in "Sequencia de treinamento do preambulo da mensagem...")
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [352, 84.0]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '32000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 12]
+    rotation: 0
+    state: enabled
+- name: sym_dly
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: 0,1,1,1
+    label: ''
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: int
+    start: '0'
+    step: '1'
+    stop: '16'
+    value: '0'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [648, 20.0]
+    rotation: 0
+    state: enabled
+- name: analog_noise_source_x_0
+  id: analog_noise_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '0.03'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    noise_type: analog.GR_GAUSSIAN
+    seed: '0'
+    type: complex
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [896, 396.0]
+    rotation: 0
+    state: disabled
+- name: blocks_add_xx_0
+  id: blocks_add_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1144, 384.0]
+    rotation: 0
+    state: disabled
+- name: blocks_delay_0
+  id: blocks_delay
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    delay: sym_dly
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_ports: '1'
+    showports: 'False'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [136, 500.0]
+    rotation: 180
+    state: enabled
+- name: blocks_file_sink_0
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'False'
+    comment: ''
+    file: /dev/pts/0
+    type: byte
+    unbuffered: 'False'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [96, 300.0]
+    rotation: 180
+    state: enabled
+- name: blocks_file_sink_1
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'False'
+    comment: ''
+    file: /home/picinin/Desktop/DSPII/evm_meas.txt
+    type: float
+    unbuffered: 'False'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [376, 412.0]
+    rotation: 0
+    state: disabled
+- name: blocks_packed_to_unpacked_xx_0
+  id: blocks_packed_to_unpacked_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    bits_per_chunk: '2'
+    comment: ''
+    endianness: gr.GR_MSB_FIRST
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_ports: '1'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [528, 196.0]
+    rotation: 0
+    state: enabled
+- name: blocks_tag_gate_0
+  id: blocks_tag_gate
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    propagate_tags: 'False'
+    single_key: '""'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [520, 652.0]
+    rotation: 180
+    state: enabled
+- name: blocks_throttle2_0_0
+  id: blocks_throttle2
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    ignoretag: 'False'
+    limit: auto
+    maximum: '0.1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_second: bb_rate
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [312, 228.0]
+    rotation: 0
+    state: enabled
+- name: blocks_unpacked_to_packed_xx_0
+  id: blocks_unpacked_to_packed_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    bits_per_chunk: '1'
+    comment: ''
+    endianness: gr.GR_MSB_FIRST
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_ports: '1'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [96, 404.0]
+    rotation: 0
+    state: enabled
+- name: blocks_vector_source_x_0
+  id: blocks_vector_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    repeat: 'True'
+    tags: '[head]'
+    type: byte
+    vector: preamble+message
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [72, 180.0]
+    rotation: 0
+    state: enabled
+- name: channels_dynamic_channel_model_0
+  id: channels_dynamic_channel_model
+  parameters:
+    K: '4.0'
+    LOS: 'False'
+    N: '8'
+    affinity: ''
+    alias: ''
+    cfo_maxdev: 1e3
+    cfo_stdev: '0.01'
+    comment: ''
+    delays: '[0.0,0.1,1.3]'
+    fD: '1.0'
+    mags: '[1,0.99,0.97]'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    noise_amp: '0.2'
+    ntaps: '8'
+    samp_rate: interp*bb_rate
+    seed: '1235472534997635'
+    sro_maxdev: 1e3
+    sro_stdev: '0.01'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1276.0, 320]
+    rotation: 270
+    state: enabled
+- name: digital_binary_slicer_fb_0
+  id: digital_binary_slicer_fb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [144, 584.0]
+    rotation: 0
+    state: enabled
+- name: digital_constellation_encoder_bc_0
+  id: digital_constellation_encoder_bc
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    constellation: QAM4
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [656, 292.0]
+    rotation: 0
+    state: enabled
+- name: digital_constellation_soft_decoder_cf_0
+  id: digital_constellation_soft_decoder_cf
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    constellation: QAM4
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    npwr: '-1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [240, 652.0]
+    rotation: 180
+    state: enabled
+- name: digital_decision_feedback_equalizer_0
+  id: digital_decision_feedback_equalizer
+  parameters:
+    adapt_after_training: 'False'
+    affinity: ''
+    alg: alga
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_taps_fwd: '5'
+    num_taps_rev: '3'
+    sps: '1'
+    training_sequence: '[(-1+1j), (-1+1j), (-1-1j), (1-1j), (-1+1j), (1+1j), (-1+1j),
+      (-1+1j), (-1+1j), (1-1j), (-1-1j), (-1+1j), (-1+1j), (1-1j), (-1+1j), (-1+1j),
+      (-1+1j), (1+1j), (-1+1j), (-1+1j), (-1+1j), (1+1j), (1-1j), (1+1j), (-1+1j),
+      (1+1j), (-1-1j), (1-1j), (-1+1j), (1+1j), (1+1j), (-1+1j), (-1+1j), (1+1j),
+      (-1-1j), (-1+1j), (-1-1j), (1+1j), (-1-1j), (-1-1j), (-1+1j), (1+1j), (-1+1j),
+      (-1-1j), (-1+1j), (1+1j), (-1+1j), (-1+1j), (-1-1j), (1+1j), (-1-1j), (-1-1j),
+      (-1+1j), (1-1j), (-1+1j), (-1-1j), (-1+1j), (1-1j), (-1-1j), (1+1j), (-1+1j),
+      (1+1j), (-1+1j), (-1+1j), (-1+1j), (1+1j), (1+1j), (-1+1j), (-1+1j), (1+1j),
+      (1-1j), (1+1j), (-1+1j), (1+1j), (-1-1j), (-1+1j), (-1+1j), (1+1j), (1-1j),
+      (-1+1j), (-1+1j), (1+1j), (-1+1j), (-1+1j), (-1+1j), (1+1j), (1-1j), (1+1j),
+      (-1+1j), (1-1j), (-1+1j), (-1-1j), (-1+1j), (1+1j), (1-1j), (1-1j), (-1-1j),
+      (1+1j), (-1-1j), (-1-1j), (-1+1j), (1+1j), (-1+1j), (-1-1j), (-1+1j), (1+1j),
+      (1-1j), (1-1j), (-1-1j), (1+1j), (-1-1j), (-1-1j), (-1+1j), (1-1j), (-1-1j),
+      (-1-1j), (-1+1j), (1-1j), (-1-1j), (1+1j), (-1+1j), (1+1j), (-1+1j), (-1+1j),
+      (-1+1j), (1+1j), (-1-1j), (-1+1j), (-1+1j), (1+1j), (1-1j), (-1+1j), (-1+1j),
+      (1+1j), (-1-1j), (1+1j), (-1+1j), (1-1j), (-1+1j), (-1+1j), (-1+1j), (1+1j),
+      (1-1j), (-1-1j), (-1+1j), (1+1j), (1-1j), (1-1j), (-1-1j), (1+1j), (-1-1j),
+      (-1-1j), (-1+1j), (1+1j), (-1+1j), (-1-1j), (-1+1j), (1+1j), (-1-1j), (-1+1j),
+      (-1-1j), (1+1j), (-1-1j), (-1-1j), (-1+1j), (1+1j), (1-1j), (-1+1j), (-1+1j),
+      (1+1j), (-1+1j), (-1+1j), (-1+1j), (1+1j), (1-1j), (1+1j), (-1+1j), (1-1j),
+      (-1-1j), (1-1j), (-1+1j), (1+1j), (-1-1j), (-1+1j), (-1+1j), (1+1j), (-1+1j),
+      (1-1j), (-1+1j), (1+1j), (-1+1j), (-1+1j), (-1+1j), (1+1j), (1-1j), (-1+1j),
+      (-1-1j), (1+1j), (1-1j), (1+1j), (-1-1j), (1+1j), (1-1j), (1+1j), (-1-1j), (1+1j),
+      (1-1j), (1+1j)]'
+    training_start_tag: training_start
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [736, 704.0]
+    rotation: 180
+    state: disabled
+- name: digital_meas_evm_cc_0
+  id: digital_meas_evm_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    cons: QAM4
+    maxoutbuf: '0'
+    meas_type: digital.evm_measurement_t.EVM_DB
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [328, 536.0]
+    rotation: 180
+    state: disabled
+- name: epy_block_0
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\nimport torch\nfrom torch import nn\nimport pmt\n\n\n\
+      class NeuralNetwork(nn.Module):\n    def __init__(self):\n        super().__init__()\n\
+      \        #self.flatten = nn.Flatten()\n        self.linear_relu_stack = nn.Sequential(\n\
+      \            nn.Linear(10*2, 8*2),\n            nn.Tanh(),\n            nn.Linear(8*2,\
+      \ 4*2),\n            nn.Tanh(),\n            nn.Linear(4*2, 2)\n        )\n\n\
+      \    def forward(self, x):\n        if isinstance(x, np.ndarray):\n        \
+      \    #x_real = np.stack((x.real, x.imag), axis=1).astype(np.float32)  # shape:\
+      \ [N, 2]\n            #norms = np.linalg.norm(x_real, axis=1, keepdims=True)\
+      \ + 1e-8\n            #x_real = x_real / norms\n            xp = torch.from_numpy(x)\n\
+      \            logits = self.linear_relu_stack(xp)\n            y = logits.detach().numpy().astype(np.complex64)\n\
+      \            complex_out = y[:, 0] + 1j * y[:, 1]\n            return complex_out.astype(np.complex64)\n\
+      \        else:\n            logits = self.linear_relu_stack(x)\n           \
+      \ return logits  # return raw tensor, not converted to NumPy\n    \nclass blk(gr.sync_block):\
+      \  # other base classes are basic_block, decim_block, interp_block\n    \"\"\
+      \"Multi-Layer Perceptron Equalizer\"\"\"\n\n    def __init__(self, training_sequence=[],\
+      \ tag_key = ''):  # only default arguments here\n        \"\"\"arguments to\
+      \ this function show up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n\
+      \            self,\n            name='MLPE',   # will show up in GRC\n     \
+      \       in_sig=[np.complex64],\n            out_sig=[np.complex64]\n       \
+      \ )\n        self.training_sequence = np.array(training_sequence, dtype=np.complex64)\n\
+      \        self.tag_key = tag_key\n        self.model = NeuralNetwork().to(\"\
+      cpu\")\n        self.loss_fn = nn.MSELoss()\n        self.optimizer = torch.optim.SGD(self.model.parameters(),\
+      \ lr=50e-3, momentum = 0.50, nesterov = False)\n        self.wrap_sequence =\
+      \ np.zeros(19, dtype = np.float32)\n\n    def work(self, input_items, output_items):\n\
+      \        \"\"\"example: multiply with constant\"\"\"\n        in0 = input_items[0]\n\
+      \        n_items = len(in0)\n\n        # get all tags associated with input_items[0]\n\
+      \        tagTuple = self.get_tags_in_window(0, 0, n_items)\n\n        # loop\
+      \ through all input tags\n        for tag in tagTuple:\n            if (pmt.to_python(tag.key)\
+      \ == self.tag_key):\n                self.model.train()\n                abs_offset\
+      \ = tag.offset - self.nitems_read(0)\n                train_len = len(self.training_sequence)\n\
+      \                if abs_offset + train_len <= n_items:\n                   \
+      \ input_window = in0[abs_offset:abs_offset + train_len]\n                  \
+      \  self.train_on_window(input_window, self.training_sequence)\n            \
+      \    else:\n                    input_window = in0[abs_offset::]\n         \
+      \           croped_sequence = self.training_sequence[:len(input_window)]\n \
+      \                   self.train_on_window(input_window, croped_sequence)\n  \
+      \                \n        float_input = np.stack((in0.real, in0.imag), axis=1).astype(np.float32)\
+      \ #batch x 2\n        #flat_input = np.concatenate((float_input.flatten(),np.zeros(19,\
+      \ dtype = np.float32)))\n        flat_input = np.concatenate((self.wrap_sequence,\
+      \ float_input.flatten()))\n        windowed_input = np.lib.stride_tricks.sliding_window_view(flat_input,\
+      \ 20)\n        resized_input = windowed_input[::2]\n        self.wrap_sequence\
+      \ = flat_input[(len(flat_input)-19)::]\n\n        self.model.eval()\n      \
+      \  output_items[0][:] = self.model(resized_input)\n        return len(output_items[0])\n\
+      \    \n    def train_on_window(self, input_data, target_data):\n        #self.model.train()\n\
+      \        x = np.stack((input_data.real, input_data.imag), axis=1).astype(np.float32)\n\
+      \        y = np.stack((target_data.real, target_data.imag), axis=1).astype(np.float32)\n\
+      \        #x_flat = np.concatenate((x.flatten(),np.zeros(19, dtype = np.float32)))\n\
+      \        x_flat = np.concatenate((self.wrap_sequence, x.flatten()))\n      \
+      \  x_window =  np.lib.stride_tricks.sliding_window_view(x_flat, 20)\n      \
+      \  x_resize = x_window[::2]\n\n        x_tensor = torch.from_numpy(x_resize)\n\
+      \        y_tensor = torch.from_numpy(y)\n\n        pred = self.model(x_tensor)\n\
+      \n        loss = self.loss_fn(pred[:(len(pred)-20)], y_tensor[:(len(y_tensor)-20)])\n\
+      \n        loss.backward()\n        self.optimizer.step()\n        self.optimizer.zero_grad()\n\
+      \n\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tag_key: '"training_start"'
+    training_sequence: '[(-1+1j), (-1+1j), (-1-1j), (1-1j), (-1+1j), (1+1j), (-1+1j),
+      (-1+1j), (-1+1j), (1-1j), (-1-1j), (-1+1j), (-1+1j), (1-1j), (-1+1j), (-1+1j),
+      (-1+1j), (1+1j), (-1+1j), (-1+1j), (-1+1j), (1+1j), (1-1j), (1+1j), (-1+1j),
+      (1+1j), (-1-1j), (1-1j), (-1+1j), (1+1j), (1+1j), (-1+1j), (-1+1j), (1+1j),
+      (-1-1j), (-1+1j), (-1-1j), (1+1j), (-1-1j), (-1-1j), (-1+1j), (1+1j), (-1+1j),
+      (-1-1j), (-1+1j), (1+1j), (-1+1j), (-1+1j), (-1-1j), (1+1j), (-1-1j), (-1-1j),
+      (-1+1j), (1-1j), (-1+1j), (-1-1j), (-1+1j), (1-1j), (-1-1j), (1+1j), (-1+1j),
+      (1+1j), (-1+1j), (-1+1j), (-1+1j), (1+1j), (1+1j), (-1+1j), (-1+1j), (1+1j),
+      (1-1j), (1+1j), (-1+1j), (1+1j), (-1-1j), (-1+1j), (-1+1j), (1+1j), (1-1j),
+      (-1+1j), (-1+1j), (1+1j), (-1+1j), (-1+1j), (-1+1j), (1+1j), (1-1j), (1+1j),
+      (-1+1j), (1-1j), (-1+1j), (-1-1j), (-1+1j), (1+1j), (1-1j), (1-1j), (-1-1j),
+      (1+1j), (-1-1j), (-1-1j), (-1+1j), (1+1j), (-1+1j), (-1-1j), (-1+1j), (1+1j),
+      (1-1j), (1-1j), (-1-1j), (1+1j), (-1-1j), (-1-1j), (-1+1j), (1-1j), (-1-1j),
+      (-1-1j), (-1+1j), (1-1j), (-1-1j), (1+1j), (-1+1j), (1+1j), (-1+1j), (-1+1j),
+      (-1+1j), (1+1j), (-1-1j), (-1+1j), (-1+1j), (1+1j), (1-1j), (-1+1j), (-1+1j),
+      (1+1j), (-1-1j), (1+1j), (-1+1j), (1-1j), (-1+1j), (-1+1j), (-1+1j), (1+1j),
+      (1-1j), (-1-1j), (-1+1j), (1+1j), (1-1j), (1-1j), (-1-1j), (1+1j), (-1-1j),
+      (-1-1j), (-1+1j), (1+1j), (-1+1j), (-1-1j), (-1+1j), (1+1j), (-1-1j), (-1+1j),
+      (-1-1j), (1+1j), (-1-1j), (-1-1j), (-1+1j), (1+1j), (1-1j), (-1+1j), (-1+1j),
+      (1+1j), (-1+1j), (-1+1j), (-1+1j), (1+1j), (1-1j), (1+1j), (-1+1j), (1-1j),
+      (-1-1j), (1-1j), (-1+1j), (1+1j), (-1-1j), (-1+1j), (-1+1j), (1+1j), (-1+1j),
+      (1-1j), (-1+1j), (1+1j), (-1+1j), (-1+1j), (-1+1j), (1+1j), (1-1j), (-1+1j),
+      (-1-1j), (1+1j), (1-1j), (1+1j), (-1-1j), (1+1j), (1-1j), (1+1j), (-1-1j), (1+1j),
+      (1-1j), (1+1j)]'
+  states:
+    _io_cache: ('MLPE', 'blk', [('training_sequence', '[]'), ('tag_key', "''")], [('0',
+      'complex', 1)], [('0', 'complex', 1)], 'Multi-Layer Perceptron Equalizer', ['tag_key',
+      'training_sequence'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [744, 620.0]
+    rotation: 180
+    state: enabled
+- name: qtgui_const_sink_x_0
+  id: qtgui_const_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: '"blue"'
+    color10: '"red"'
+    color2: '"red"'
+    color3: '"red"'
+    color4: '"red"'
+    color5: '"red"'
+    color6: '"red"'
+    color7: '"red"'
+    color8: '"red"'
+    color9: '"red"'
+    comment: ''
+    grid: 'False'
+    gui_hint: 1,0,1,1
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    legend: 'True'
+    marker1: '0'
+    marker10: '0'
+    marker2: '0'
+    marker3: '0'
+    marker4: '0'
+    marker5: '0'
+    marker6: '0'
+    marker7: '0'
+    marker8: '0'
+    marker9: '0'
+    name: Entrada do Filtro TX
+    nconnections: '1'
+    size: '1024'
+    style1: '0'
+    style10: '0'
+    style2: '0'
+    style3: '0'
+    style4: '0'
+    style5: '0'
+    style6: '0'
+    style7: '0'
+    style8: '0'
+    style9: '0'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: complex
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    xmax: '2'
+    xmin: '-2'
+    ymax: '2'
+    ymin: '-2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [664, 372.0]
+    rotation: 180
+    state: enabled
+- name: qtgui_const_sink_x_1
+  id: qtgui_const_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    grid: 'False'
+    gui_hint: 1,1,1,1
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    legend: 'True'
+    marker1: '0'
+    marker10: '0'
+    marker2: '0'
+    marker3: '0'
+    marker4: '0'
+    marker5: '0'
+    marker6: '0'
+    marker7: '0'
+    marker8: '0'
+    marker9: '0'
+    name: "\"Sa\xEDda do Canal\""
+    nconnections: '1'
+    size: '1024'
+    style1: '0'
+    style10: '0'
+    style2: '0'
+    style3: '0'
+    style4: '0'
+    style5: '0'
+    style6: '0'
+    style7: '0'
+    style8: '0'
+    style9: '0'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: complex
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    xmax: '2'
+    xmin: '-2'
+    ymax: '2'
+    ymin: '-2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [744, 492.0]
+    rotation: 180
+    state: enabled
+- name: qtgui_const_sink_x_1_0
+  id: qtgui_const_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    grid: 'False'
+    gui_hint: 2,0,1,1
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    legend: 'True'
+    marker1: '0'
+    marker10: '0'
+    marker2: '0'
+    marker3: '0'
+    marker4: '0'
+    marker5: '0'
+    marker6: '0'
+    marker7: '0'
+    marker8: '0'
+    marker9: '0'
+    name: "\"Sa\xEDda Equalizador\""
+    nconnections: '1'
+    size: '1024'
+    style1: '0'
+    style10: '0'
+    style2: '0'
+    style3: '0'
+    style4: '0'
+    style5: '0'
+    style6: '0'
+    style7: '0'
+    style8: '0'
+    style9: '0'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: complex
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    xmax: '2'
+    xmin: '-2'
+    ymax: '2'
+    ymin: '-2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [512, 508.0]
+    rotation: 180
+    state: enabled
+- name: root_raised_cosine_filter_1
+  id: root_raised_cosine_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '0.3'
+    comment: ''
+    decim: '1'
+    gain: '4'
+    interp: interp
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    ntaps: 2*interp
+    samp_rate: interp*bb_rate
+    sym_rate: bb_rate
+    type: interp_fir_filter_ccf
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [920, 252.0]
+    rotation: 0
+    state: enabled
+- name: root_raised_cosine_filter_1_0_0
+  id: root_raised_cosine_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '0.3'
+    comment: ''
+    decim: interp
+    gain: '4'
+    interp: interp
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    ntaps: 2*interp
+    samp_rate: interp*bb_rate
+    sym_rate: bb_rate
+    type: fir_filter_ccf
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1016, 588.0]
+    rotation: 180
+    state: enabled
+
+connections:
+- [analog_noise_source_x_0, '0', blocks_add_xx_0, '1']
+- [blocks_add_xx_0, '0', root_raised_cosine_filter_1_0_0, '0']
+- [blocks_delay_0, '0', blocks_unpacked_to_packed_xx_0, '0']
+- [blocks_packed_to_unpacked_xx_0, '0', digital_constellation_encoder_bc_0, '0']
+- [blocks_tag_gate_0, '0', digital_constellation_soft_decoder_cf_0, '0']
+- [blocks_tag_gate_0, '0', digital_meas_evm_cc_0, '0']
+- [blocks_throttle2_0_0, '0', blocks_packed_to_unpacked_xx_0, '0']
+- [blocks_unpacked_to_packed_xx_0, '0', blocks_file_sink_0, '0']
+- [blocks_vector_source_x_0, '0', blocks_throttle2_0_0, '0']
+- [channels_dynamic_channel_model_0, '0', root_raised_cosine_filter_1_0_0, '0']
+- [digital_binary_slicer_fb_0, '0', blocks_delay_0, '0']
+- [digital_constellation_encoder_bc_0, '0', qtgui_const_sink_x_0, '0']
+- [digital_constellation_encoder_bc_0, '0', root_raised_cosine_filter_1, '0']
+- [digital_constellation_soft_decoder_cf_0, '0', digital_binary_slicer_fb_0, '0']
+- [digital_decision_feedback_equalizer_0, '0', blocks_tag_gate_0, '0']
+- [digital_decision_feedback_equalizer_0, '0', qtgui_const_sink_x_1_0, '0']
+- [digital_meas_evm_cc_0, '0', blocks_file_sink_1, '0']
+- [epy_block_0, '0', blocks_tag_gate_0, '0']
+- [epy_block_0, '0', qtgui_const_sink_x_1_0, '0']
+- [root_raised_cosine_filter_1, '0', blocks_add_xx_0, '0']
+- [root_raised_cosine_filter_1, '0', channels_dynamic_channel_model_0, '0']
+- [root_raised_cosine_filter_1_0_0, '0', digital_decision_feedback_equalizer_0, '0']
+- [root_raised_cosine_filter_1_0_0, '0', epy_block_0, '0']
+- [root_raised_cosine_filter_1_0_0, '0', qtgui_const_sink_x_1, '0']
+
+metadata:
+  file_format: 1
+  grc_version: 3.10.10.0
